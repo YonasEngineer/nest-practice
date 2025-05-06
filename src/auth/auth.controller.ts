@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Request } from 'express';
 import { AuthDto } from './dto';
@@ -7,12 +7,11 @@ import { AuthDto } from './dto';
 export class AuthController {
   //Here we use dependecy injection
   constructor(private authService: AuthService) {}
-
   @Post('signup')
   signup(@Body() dto: AuthDto) {
-    console.log({ dto });
     return this.authService.signup(dto);
   }
+  @HttpCode(HttpStatus.OK)
   @Post('signin')
   signin(@Body() dto: AuthDto) {
     return this.authService.signin(dto);
